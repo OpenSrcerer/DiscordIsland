@@ -1,8 +1,10 @@
 package discordIsland;
 
-import discordIsland.Commands.Info;
-import discordIsland.Listeners.UserJoin;
-import discordIsland.Listeners.UserLeave;
+import discordIsland.Commands.Island.*;
+import discordIsland.Commands.Admin.*;
+import discordIsland.Commands.Other.*;
+import discordIsland.Listeners.*;
+
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -33,8 +35,23 @@ public class dIsland
         dis.getPresence().setStatus(OnlineStatus.ONLINE);
         dis.getPresence().setActivity(Activity.listening("new islands to create!"));
 
-        dis.addEventListener(new UserJoin());
-        dis.addEventListener(new UserLeave());
+        // StartupUserListener.checkUsers();
+        // GUILD LISTENERS
+        dis.addEventListener(new GuildJoin());
+        dis.addEventListener(new GuildLeave());
+
+        // USER LISTENERS
+        dis.addEventListener(new MemberJoin());
+        dis.addEventListener(new MemberLeave());
+
+        // COMMAND LISTENERS
+        dis.addEventListener(new MyIsland());
+        dis.addEventListener(new AddGuest());
+        dis.addEventListener(new AddContributor());
+        dis.addEventListener(new RemoveGuest());
+        dis.addEventListener(new RemoveContributor());
         dis.addEventListener(new Info());
+        dis.addEventListener(new SetRole());
+        dis.addEventListener(new RemoveRole());
     }
 }

@@ -1,18 +1,14 @@
 package discordIsland.MySQL;
 
-import discordIsland.MySQL.Connection;
-
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 // class for all the new MYSQL objects that get created
 // inner static classes -> a new object
-
 public class New
 {
     public static class Guild
     {
-        public static void checkAdd (String GUILD_ID)
+        public static void checkAdd (String GUILD_ID) throws SQLException
         {
             // initiates connection with database
             Connection conn = new Connection();
@@ -31,7 +27,7 @@ public class New
 
     public static class Member
     {
-        public static void checkAdd (String MEMBER_ID, String GUILD_ID, String CAT_ID)
+        public static void checkAdd (String MEMBER_ID, String GUILD_ID, String CAT_ID) throws SQLException
         {
             // initiates connection with database
             Connection conn = new Connection();

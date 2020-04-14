@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+// base driver file for connection with your database
+
 public class Connection
 {
     private java.sql.Connection conn = null;
@@ -14,10 +16,15 @@ public class Connection
     {
         try
         {
+            // FORMAT: DriverManager.getConnection(
+            //            "jdbc:mysql://servername:port/dbname"
+            //            "DBUSERNAME"
+            //            "DBPASSWORD"
+
             conn = DriverManager.getConnection(
-                    "YOUR-DB-WEBSITE",
-                    "YOUR-DB-USERNAME",
-                    "YOUR-DB-PASSWORD"
+                    "LINE1",
+                    "LINE2",
+                    "LINE3"
             );
         }
         catch (SQLException ex)
@@ -27,58 +34,32 @@ public class Connection
     }
 
     // queries database for non-modifying queries
-    public ResultSet query (String Query)
+    public ResultSet query (String Query) throws SQLException
     {
         Statement stmt;
-
-        try
-        {
-            stmt = conn.createStatement();
-            return (stmt.executeQuery(Query));
-        }
-        catch (SQLException ex)
-        {
-            System.out.println(ex);
-        }
-
-        return null;
+        stmt = conn.createStatement();
+        return (stmt.executeQuery(Query));
     }
 
-    // executes update query (insert/alter etc)
+    // executes update query (insert/alter/update etc)
     // on connected db
-    public int update (String Query)
+    public int update (String Query) throws SQLException
     {
         Statement stmt;
-
-        try
-        {
-            stmt = conn.createStatement();
-            return (stmt.executeUpdate(Query));
-        }
-        catch (SQLException ex)
-        {
-            System.out.println(ex);
-        }
-
-        return -1;
+        stmt = conn.createStatement();
+        return (stmt.executeUpdate(Query));
     }
 
     // returns true upon finding data
     // false otherwise
-    public boolean checkDatabaseForData (String Query)
+    public boolean checkDatabaseForData (String Query) throws SQLException
     {
-        try
-        {
-            ResultSet rs = query(Query);
-            rs.beforeFirst();
+        ResultSet rs = query(Query);
+        rs.beforeFirst();
 
-            if (!rs.next())
-                return false;
-        }
-        catch (SQLException ex)
-        {
-            System.out.println(ex);
-        }
+        if (!rs.next())
+            return false;
+
         return true;
     }
 
@@ -90,7 +71,7 @@ public class Connection
         }
         catch (SQLException ex)
         {
-            System.out.println(ex);
+            ex.printStackTrace();
         }
     }
 }
